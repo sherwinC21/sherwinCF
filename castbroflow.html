@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Frame with Buttons</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+        }
+        .menu {
+            width: 200px;
+            background-color: #f8f9fa;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .menu button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .menu button:hover {
+            background-color: #0056b3;
+        }
+     
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            background-color: #f1f1f1;
+            border-left: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+
+<div class="menu">
+    <button onclick="loadContent('content1')">Greetings</button>
+    <button onclick="loadContent('content2')">RETURN</button>
+    <button onclick="loadContent('content3')">ORDER</button>
+    <button onclick="loadContent('content4')">3RD PARTY</button>
+    <button onclick="loadContent('content5')">REF CODE</button>
+    <button onclick="loadContent('content6')">2X MISSED</button>
+
+    <div class="inline-container">
+        <button onclick="loadContent('content7')">3X MISSED</button>
+           <label for="myInput">Select from the list:</label>
+        <input type="text" id="contentSelector" list="contentOptions" placeholder="Select or type..." onchange="selectContent()">
+    </div>
+
+  
+    <datalist id="contentOptions">
+        
+        <option value="Phase 1 Module 1"></option>
+        <option value="Phase 1 Module 2"></option>
+        <option value="BUY NOW PAY LATER- (BNPL)"></option>
+        <option value="Placing an order"></option>
+        <option value="....."></option>
+        <option value="....."></option>
+        <option value="....."></option>
+    </datalist>
+</div>
+
+<div class="content" id="contentFrame">
+    <h2>Welcome</h2>
+    <p>Click on a button to load content here.</p>
+</div>
+
+<script>
+    function loadContent(contentId) {
+        const contentFrame = document.getElementById('contentFrame');
+        contentFrame.innerHTML = ''; // Clear previous content
+
+        const contentData = {
+            'content1': `<h2 style="color: #007bff; border-bottom: 2px solid #007bff; padding-bottom: 5px;">GREETINGS</h2>
+        <p style="font-size: 1.2em; line-height: 1.5;">
+            <strong>Good Day!</strong> <br><strong>(your name)...</strong><br>
+            <span style="font-weight: bold; color: #28a745;">...speaking.</span> 
+            How can I help you?
+        </p>`,
+            'content2': `<h2 style="color: #007bff; border-bottom: 2px solid #007bff; padding-bottom: 5px;">RETURN SCRIPT</h2>
+        <p><strong>Can I have your account number please?</strong></p>
+        <p><strong>Could you confirm your full name and first line of address, please?</strong></p>
+        <p>
+        (If a Third Party is calling, include the <span style="background-color: yellow;">DATE OF BIRTH</span>, 
+        <span style="background-color: yellow;">TELEPHONE NUMBER</span>, and 
+        <span style="background-color: yellow;">LAST ITEM ORDERED</span> - if they are unable to provide this information, 
+        ask the caller if the customer is there to give permission for the return to be arranged).
+        </p>
+        <ul style="list-style-type: disc; margin-left: 20px; color: #555;">
+            <li>Would you like to arrange an EVRi courier to collect your parcel?</li>
+            <li>It will be an all-day collection between 7am and 8pm. They collect on a day of your choice, apart from Sundays. Which day is suitable for you?</li>
+            <li>Would you like me to give any collection instructions to the courier?</li>
+        </ul>
+        <p><strong>I'm sorry that you need to return an item.</strong> Can you confirm the reason for return, please?</p>
+        <p style="color: #d9534f; font-weight: bold;">(This will determine if there will be a charge for the return collection).</p>
+        <p><em>REMEMBER: If the item is damaged, faulty, or the wrong item has been sent, we will NOT charge for the refund. For any other reason, there WILL be a charge.</em></p>
+        
+        <p>
+            <span style="font-weight: bold;">PERSONAL ACCOUNT:</span> "The collection charge of £3.99 will be added to your Personal Account and your returned parcels will be processed within 14 days".
+        </p>
+        <p>
+            <span style="font-weight: bold;">FULL PAYMENT:</span> "The collection charge is £3.99 and will be deducted from your refund, which will be processed within 14 days".
+        </p>
+        <p style="background-color: #f9f9f9; border-left: 4px solid #007bff; padding: 10px;">
+            <strong>Your collection has been arranged.</strong>
+        </p>`,
+            'content3': `<h2 style="color: #28a745; border-bottom: 2px solid #28a745; padding-bottom: 5px;">ORDER SCRIPT</h2>
+        <p><strong>Can I Have your account number, please?</strong></p>
+        
+        <p><strong>Thank you.</strong> Could you confirm your full name and the first line of your address, please?</p>
+
+        <p><strong>Thank you.</strong> Could I now have the <span style="background-color: yellow;">offer code</span> that you would like to use with this order?</p>
+
+        <p>
+            <strong>Thank you.</strong> What’s the reference number of the item you'd like to order today?
+            <br><em>"What color would you like?"</em>
+            <br><em>"What size would you like?"</em>
+            <br><strong>NOTE:</strong> Continue until the order is complete, confirming the price and stock status of each item ordered.
+        </p>
+
+        <p style="color: #007bff; font-weight: bold;">PROMOTE SPECIAL OFFER (IF APPLICABLE)</p>
+        <p>Confirm the total value of the order:</p>
+        <p style="background-color: #f9f9f9; border-left: 4px solid #007bff; padding: 10px;">
+            "Your total value of the order is <strong>fx</strong>. This includes <em>(any discounts, free postage, free gifts, etc.)</em>"
+        </p>
+
+        <p style="color: #007bff; font-weight: bold;">PROMOTE EXPRESS DELIVERY</p>
+        <p>For an additional <strong>£3.00</strong>, I can offer you express delivery, which means your parcel will be with you on <strong>(state actual day of delivery)</strong>.</p>
+
+        <p style="font-weight: bold; color: #d9534f;">PAYMENT:</p>
+        <p>Would you like this adding to your Personal Account?</p>
+
+        <ul style="list-style-type: none; padding-left: 0;">
+            <li><strong>NORMAL DELIVERY:</strong> "Thank you for your order today, it will be with you within 7 days."</li>
+            <li><strong>EXPRESS DELIVERY:</strong> "Thank you for your order today, it will be with you on <strong>(state day)</strong>."</li>
+        </ul>
+ <p style="margin: 20px 0; padding: 10px; border-left: 5px solid #dc3545; color: #dc3545;">
+        <strong>Out of Stock:</strong> It is currently not on our depot but it will be with you within 3-4 weeks. Would you like to add and wait for it?
+    </p>
+
+    <p style="margin: 20px 0; padding: 10px; border-left: 5px solid #ffc107; color: #ffc107;">
+        <strong>Low Stock:</strong> This item is low stock, which means that we may run out of stock and need to replenish. There may be a delay of 3-4 weeks.
+    </p>
+
+    <p style="margin: 20px 0; padding: 10px; border-left: 5px solid #17a2b8; color: #17a2b8;">
+        <strong>Direct Dispatch:</strong> This item is coming directly from the manufacturer. It will take up to 14 days to arrive.
+    </p>
+
+    <p style="margin: 20px 0; padding: 10px; border-left: 5px solid #6c757d; color: #6c757d;">
+        <strong>Auto Cancel:</strong> This item is already discontinued and will no longer be in stock anymore.
+    </p>`,
+            'content4': `<h2 style="color: #dc3545; border-bottom: 2px solid #dc3545; padding-bottom: 5px;">3RD Party</h2>
+        <p style="line-height: 1.6; font-size: 1.1em;">
+            If a Third Party is calling, please provide the following information:
+            <ul style="list-style-type: disc; margin-left: 20px;">
+        <ul>
+        <li><strong>Name of Account Holder:</strong></li>
+        <li><strong>First Line of Address:</strong></li>
+<h2 style="color: #dc3545;">(or one of the following)</h2>       
+
+        <li><strong>Date of Birth:</strong></li>
+        <li><strong>Telephone Number:</strong></li>
+        <li><strong>Last Item Ordered:</strong></li>
+    </ul>
+
+    <h3>Important:</h3>
+    <p>If the caller cannot provide this information, please ask if the customer is available to give permission for the return to be arranged.</p>
+
+    <h3>Please Note:</h3>
+    <ul>
+        <li>No Special Offers</li>
+        <li>No Express Delivery Offers</li>
+        <li>Cannot Open Account on Behalf of Account Holder</li>
+        <li>Not Allowed to Make Any Changes on the Account</li>
+    </ul>`,
+            'content5': `<h2 style="color: #007bff; border-bottom: 2px solid #007bff; padding-bottom: 5px;">REF CODE</h2>
+        <p><strong>Reminders for Offer Codes</strong></p>
+
+        <p>
+            <strong>Fun Catalogue (MO. Pages):</strong><br>
+            No offer codes included here. Please check the order form, Damart letter, or the latest statement for offer codes. 
+            These codes can be either numbers or words, such as <span style="background-color: yellow;">LOYAL</span>, 
+            <span style="background-color: yellow;">WINTER</span>, or <span style="background-color: yellow;">SPRING</span>.
+        </p>
+
+        <p><strong>Account Number:</strong> You can find the account number on the order form.</p>
+
+        <p>
+            <strong>€439 Sale Catalogue (32 Pages):</strong><br>
+            The offer code is located on the <span style="font-weight: bold;">front cover</span>, 
+            <span style="font-weight: bold;">second page</span>, or <span style="font-weight: bold;">back page</span> of the order form.
+            <br><em>Note:</em> There is no account number specific to individual customers for this catalogue.
+        </p>
+
+        <p>
+            <strong>Off-The-Page (OTP) Advertisements:</strong><br>
+            Found in newspapers and magazines, these ads feature discounted items. The offer code is listed 
+            <span style="font-weight: bold;">next to the item reference number</span>, typically starting with a number 
+            (e.g., <span style="color: #d9534f;">6RT178X</span>).
+        </p>
+
+        <p>
+            <strong>Damart Catalogues:</strong><br>
+            <span style="font-weight: bold;">Seasons:</span> Spring, Spring/Summer, Autumn, Autumn/Winter.
+        </p>
+
+        <p>
+            <strong>For Special Offers:</strong> Please ensure you follow our guidelines for effective selling. By adhering 
+            to these guidelines, you help create a <span style="color: #28a745; font-weight: bold;">consistent</span> and 
+            <span style="color: #28a745; font-weight: bold;">positive customer experience</span>.
+        </p>
+<!-- Insert your image here -->
+        <img src="images/OTP.jpg" alt="Reference Code" />
+`,
+            'content6': `<h2 style="color: #dc3545; border-bottom: 2px solid #dc3545; padding-bottom: 5px;">FAILED RETURN COLLECTION (1-2 times)</h2>
+        
+        <ol style="line-height: 1.6; font-size: 1.1em;">
+            <li><strong>Apologize</strong></li>
+            <li><strong>Check Return Collection Screen:</strong> Check the date.</li>
+            <li><strong>Check Customer's Address:</strong> Any screen.</li>
+            <li><strong>Obtain Order Number:</strong> From <em>ORDER INQUIRY</em> - <em>ORDER DETAILS</em> check for account type (personal or full).</li>
+            <li><strong>WEB FORM:</strong>
+                <ul>
+                    <li>Email: <span style="color: #007bff;">evrinet@damart.com</span></li>
+                    <li>Link: <a href="https://clients.evricloud.co.uk" style="color: #007bff;">evricloud.co.uk</a></li>
+                    <li>Username: <span style="color: #007bff;">evriclientportal@damart.com</span></li>
+                    <li>Password: <span style="color: #d9534f;">Damart1871!</span></li>
+                </ul>
+            </li>
+            <li><strong>Parcel Details:</strong>
+                <ul>
+                    <li>Customer Reference / Order No</li>
+                    <li>It's about something else</li>
+                    <li>Provide feedback on my CX delivery experience</li>
+                    <li>The experience could have been better</li>
+                    <li>Something else (write 1st time return or 2nd time)</li>
+                </ul>
+            </li>
+            <li><strong>Type of Payment for Return:</strong> From <em>ORDER INQUIRY</em> - <em>ORDER DETAILS</em></li>
+            <li><strong>IF Personal Account:</strong> Send MEMO Entry using <strong>MULTIPLE FAILED RETURNS COLLECTIONS</strong> asking for the account to be adjusted. 
+                <em>(FULL PAYMENT CX was not charged at this point)</em>
+            </li>
+            <li><strong>FULL PAYMENT:</strong>
+                <ul>
+                    <li>Customer Enquiry</li>
+                    <li>Comments</li>
+                    <li>1st or 2nd multiple return collection failed. Arrange another return collection. <strong>FOC</strong>. Evri Web Form filled.</li>
+                </ul>
+            </li>
+            <li><strong>FOR PERSONAL ACCOUNT HOLDER:</strong>
+                <ul>
+                    <li>Memo Entry choose <strong>Multiple Failed Returns Collections</strong></li>
+                    <li>Add: 1st or Second Multiple Return Collection Failed. Evri Form Filled. Arrange another Return Collection. <strong>FOC</strong>. A/C £3.99</li>
+                </ul>
+            </li>
+        </ol>`,
+            'content7': `<h2 style="color: #dc3545; border-bottom: 2px solid #dc3545; padding-bottom: 5px;">3x or MORE FAILED RETURN COLLECTIONS</h2>
+        
+        <ol style="line-height: 1.6; font-size: 1.1em;">
+            <li><strong>Apologize</strong></li>
+            <li><strong>Check Return Collection Screen:</strong> Check the date.</li>
+            <li><strong>Check Payment Type</strong></li>
+            <li>
+                <strong>Send MEMO:</strong> Use MEMO ENTRY with multiple failed collection
+                <ul>
+                    <li><strong>NOTE:</strong>
+                        <ul>
+                            <li>Account Number</li>
+                            <li>Order Number</li>
+                            <li>Customer's Full Name</li>
+                            <li>Customer Contact Number (to contact)</li>
+                            <li>Full details on memo</li>
+                        </ul>
+                    </li>
+                    <li><strong>FOR PERSONAL ACCOUNT:</strong> Add A/C £3.99</li>
+                    <li><strong>Leave Comment for Next Agent:</strong>
+                        <p>TYPE: Customer Enquiry - Comments - 3rd Failed Collection</p>
+                    </li>
+                </ul>
+            </li>
+            <li><strong>Go to EVRI website:</strong>
+                <ul>
+                    <li>Link: <a href="https://clients.evricloud.co.uk" style="color: #007bff;">evricloud.co.uk</a></li>
+                    <li>Username: <span style="color: #007bff;">evriclientportal@damart.com</span></li>
+                    <li>Password: <span style="color: #d9534f;">Damart1871!</span></li>
+                </ul>
+            </li>
+            <li><strong>Parcel Details:</strong>
+                <ul>
+                    <li>Customer Reference / Order No</li>
+                    <li>It's about something else</li>
+                    <li>Provide feedback on my CX delivery experience</li>
+                    <li>The experience could have been better</li>
+                    <li>Something else (write 3 or more times)</li>
+                </ul>
+            </li>
+            <li><strong>Re-Arrange Collection:</strong> Advise to give <strong>3 days for investigation</strong> (not including SUNDAY).</li>
+        </ol>`
+        
+            
+        };
+
+        // Load the content associated with the button
+        contentFrame.innerHTML = contentData[contentId];
+    }
+
+    function selectContent() {
+        const selectedOption = document.getElementById('contentSelector').value;
+        const contentMap = {
+            'Phase 1 Module 1': { src: 'Phase 1 Module 1.pdf', width: '100%', height: '100%' },
+            'Phase 1 Module 2': { src: 'Phase 1 Module 2.pdf', width: '100%', height: '100%' },
+            'BUY NOW PAY LATER- (BNPL)': { src: 'BUY NOW PAY LATER- (BNPL).pdf', width: '100%', height: '100%' },
+            'Placing an order': { src: 'Placing an order.pdf', width: '100%', height: '100%' },
+            'REF CODE': { src: 'refcode.pdf', width: '100%', height: '100%' },
+            '2X MISSED': { src: '2xmissed.pdf', width: '100%', height: '100%' },
+            '3X MISSED': { src: '3xmissed.pdf', width: '100%', height: '100%' }
+        };
+
+        const selectedContent = contentMap[selectedOption];
+
+        // Load the iframe content based on the selected input
+        if (selectedContent) {
+            document.getElementById('contentFrame').innerHTML = `
+                <h2>${selectedOption}</h2>
+                <iframe src="${selectedContent.src}" width="${selectedContent.width}" height="${selectedContent.height}" style="border: none;"></iframe></iframe>
+            `;
+        } else {
+            // If nothing matches, clear the content
+            document.getElementById('contentFrame').innerHTML = `
+                <h2>Welcome</h2>
+                <p>Click on a button or select an option to load content here.</p>
+            `;
+        }
+    }
+</script>
+</body>
+</html>
